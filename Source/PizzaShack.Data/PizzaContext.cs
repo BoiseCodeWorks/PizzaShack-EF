@@ -8,15 +8,11 @@ namespace PizzaShack.Data
     {
         public DbSet<Pizza> Pizzas { get; set; }
         public DbSet<Drink> Drinks { get; set; }
-
+        public DbSet<Topping> Toppings { get; set; }
+        public DbSet<PizzaTopping> PizzaToppings { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"
-                Data Source=(localdb)\mssqllocaldb;
-                Initial Catalog=PizzaShack;
-                Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"server=den1.mssql8.gear.host;database=pizzashack2;user id=pizzashack2;password=Go34E8E8K_x~");
         }
-
-
     }
 }

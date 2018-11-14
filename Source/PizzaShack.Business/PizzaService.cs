@@ -1,4 +1,5 @@
-﻿using PizzaShack.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PizzaShack.Data;
 using PizzaShack.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,10 +25,10 @@ namespace PizzaShack.Business
             _context.SaveChanges();
         }
 
-        public List<Pizza> GetPizzas()
+        public IQueryable<Pizza> GetPizzas()
         {
             //NEVER RETURN IQUERYABLE out of BL OR DBSET
-            return _context.Pizzas.ToList();
+            return _context.Pizzas;
         }
     }
 }

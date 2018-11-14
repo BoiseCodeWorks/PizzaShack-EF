@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
 using PizzaShack.Business;
 using PizzaShack.Data;
 using PizzaShack.Entities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PizzaShack.Web.Controllers
 {
@@ -24,6 +29,22 @@ namespace PizzaShack.Web.Controllers
         public IActionResult Index()
         {
             return View(_ps.GetPizzas());
+        }
+
+        [HttpGet("~/api/pizzas")]
+        public IActionResult GetPizzas()
+        {
+            var results = _ps.GetPizzas().Select(x => new
+            {
+                x.Id,
+                x.Name,
+                x.Description,
+                x.Size,
+                x.Price,
+                Toppings = x.Toppings.Select(a => a.Topping.Name),
+            });
+
+            return Ok(results);
         }
 
         // GET: Pizzas/Details/5

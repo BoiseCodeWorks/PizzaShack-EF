@@ -34,8 +34,6 @@ namespace PizzaShack.Web
 
             services.AddDbContext<PizzaContext>();
             services.AddTransient<PizzaService>();
-
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
